@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.example.demo.dao.AdminDao">
+
+	<resultMap id="AdminMap" type="com.example.demo.dto.Admin">
+		<result property="idx" column="IDX" />
+		<result property="id" column="ID" />
+		<result property="password" column="PASSWORD" />
+		<result property="name" column="NAME" />
+		<result property="dept" column="DEPT" />
+		<result property="role" column="ROLE" />
+		<result property="email" column="EMAIL" />
+		<result property="startDate" column="START_DATE" />
+		<result property="endDate" column="END_DATE" />
+		<result property="lockedYn" column="LOCKED_YN" />
+		<result property="passInitYn" column="PASS_INIT_YN" />
+		<result property="regDate" column="REG_DATE" />
+	</resultMap>					
+
+	<select id="findAdmin" resultMap="AdminMap">
+		SELECT IDX 					
+				   ,ID
+				   ,PASSWORD
+				   ,NAME
+				   ,EMAIL
+				   ,DEPT
+				   ,START_DATE
+				   ,END_DATE
+				   ,ROLE
+				   ,PASS_INIT_YN
+				   ,LOCKED_YN
+		  FROM DAOU_ADMIN
+		WHERE 1=1
+			AND DEL_YN = 'N'
+			<if test="idx != null and idx != '' ">
+				AND IDX = #{idx}
+			</if>
+			<if test="id != null and id != '' ">
+				AND id = #{id}
+			</if>
+	</select>
+	
+	<select id="findAuthorities" resultType="String">
+		SELECT AUTHORITY
+		  FROM DAOU_AUTHORITIES
+		WHERE 1=1
+			AND IDX = #{idx} 
+	</select>
+</mapper>	
