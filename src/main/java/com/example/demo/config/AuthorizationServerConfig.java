@@ -32,7 +32,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
           .authorities("USER")
           .scopes("read", "write")
           .autoApprove(true) 
-          .redirectUris("http://localhost:9090/login"); 
+          .redirectUris("http://localhost:8888/login", "http://localhost:9090/login")
+          .accessTokenValiditySeconds(10*60); //10min  
     }
 
 }
