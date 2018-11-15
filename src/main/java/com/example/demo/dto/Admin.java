@@ -8,6 +8,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Admin implements UserDetails {
 
 	private Integer idx;
@@ -27,7 +29,7 @@ public class Admin implements UserDetails {
 	private String passInitYn;
 	private Date lastLoginDate;
 	private String authority;
-	// private List<String> authorities;
+	@JsonIgnore
 	private List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 	private List<String> authList; /* ���Ѹ���Ʈ */
 	private boolean enabled = true;
@@ -212,19 +214,6 @@ public class Admin implements UserDetails {
 		this.authorities = authorities;
 	}
 
-	public String getDeptStr() {
-		if ("DP01".equals(dept)) {
-			return "�÷�����";
-		} else if ("DP02".equals(dept)) {
-			return "������";
-		} else if ("DP03".equals(dept)) {
-			return "�����";
-		} else if ("DP04".equals(dept)) {
-			return "��Ÿ";
-		}
-		return "";
-	}
-
 	public List<String> getAuthList() {
 		return authList;
 	}
@@ -264,17 +253,6 @@ public class Admin implements UserDetails {
 
 	public void setChangePassword(String changePassword) {
 		this.changePassword = changePassword;
-	}
-
-	@Override
-	public String toString() {
-		return "Admin [idx=" + idx + ", id=" + id + ", password=" + password + ", changePassword=" + changePassword
-				+ ", name=" + name + ", email=" + email + ", dept=" + dept + ", startDate=" + startDate + ", endDate="
-				+ endDate + ", role=" + role + ", lockedYn=" + lockedYn + ", lockCount=" + lockCount + ", passInitYn="
-				+ passInitYn + ", lastLoginDate=" + lastLoginDate + ", authority=" + authority + ", authorities="
-				+ authorities + ", authList=" + authList + ", enabled=" + enabled + ", accountNonExpired="
-				+ accountNonExpired + ", accountNonLocked=" + accountNonLocked + ", regDate=" + regDate + ", regId="
-				+ regId + ", uptDate=" + uptDate + ", uptId=" + uptId + ", "+super.toString()+"]";
 	}
 
 }

@@ -7,7 +7,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>sso_sample_server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>sso_sample_server</name>
 	<description>Demo project for Spring Boot</description>

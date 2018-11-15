@@ -21,40 +21,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
+		//2. 로그인 권한을 가지고 있지 않은 경우 로그인 페이지로 이동. 허가되는 페이지 URL 설정
         http
           .requestMatchers()
-          .antMatchers("/login**", "/oauth/authorize", "/css/**", "/js/**")
+          .antMatchers("/login**", "/oauth/authorize", "/css/**", "/js/**", "/exit")
           .and()
           .authorizeRequests()
-          //.antMatchers("/login**", "/css/**", "/webjars/**").permitAll()
-          //.anyRequest().authenticated()
           .and()
           .formLogin()
           .loginProcessingUrl("/login")
 		  .loginPage("/loginForm")
-          .permitAll();
+          .permitAll()
+          /*
+          .and()
+          .csrf()
+          .requireCsrfProtectionMatcher(new AntPathRequestMatcher("/user*"))
+		  .disable()
+		  */
+          ;
         
-		/*
-		http
-		.authorizeRequests()
-			.antMatchers("/login**", "/webjars/**", "/css/**", "/userInfo").permitAll()
-			.anyRequest().authenticated()
-			.and()
-		.formLogin()
-			.loginProcessingUrl("/login")
-			.loginPage("/loginForm")
-			.permitAll()
-			.and()
-		.csrf()
-			.requireCsrfProtectionMatcher(new AntPathRequestMatcher("/user*"))
-			.disable()
-		.logout()
-			.permitAll();
-			*/
     }
  
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    	//3. DB에 접속하여 로그인 가능 여부 체크
     	auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
     }
      
